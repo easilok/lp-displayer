@@ -2,9 +2,9 @@
 
 (in-package #:lp-displayer)
 
-;; TODO: add user home config directory as a default path
-(defparameter *config-filepaths*
-  '("config.disp"))
+(defun config-filepaths ()
+  "Builds a list of known locations for configuration files"
+  `(,(merge-pathnames ".config/displayer/config.disp" (user-homedir-pathname)) "config.disp"))
 
 (defun load-config-file (&optional (file-path "config.disp"))
   "Loads and parses the configuration file into the application"
@@ -28,6 +28,7 @@
 
 (defun resolve-config-file ()
   "Resolves the path for a configuration file from known locations"
-  (loop for c in *config-filepaths*
+  (loop for c in (config-filepaths)
         do (when (uiop:file-exists-p c)
+             (format t "Using config from ~a~%" c)
              (return c))))
