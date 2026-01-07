@@ -63,16 +63,17 @@ Defines a screen layout with a least one output. Definition should have an uniqu
 
 Rules are conditions that trigger a specific layout. Currently only the connected WiFi is usable as a trigger, and must be an exact name _(we are working pattern matching for the name and other conditions)_.
 
-The application loops all `define-rules` from last to first and applies the first match. 
+The application loops all `define-rules` and applies the first that has its `:predicate` function as true. The sequence the rules are placed when running the application is:
 
-> [!IMPORTANT]  
-> This logic is in development and will change. A priority property will soon be added and the loop logic changed from top to bottom.
+- Rule are sorted by their `:priority` from lowest to highest value;
+- Rules with no priority set take a default of 100 plus their position (to ensure first declared rules should have a highest priority).
 
-The following example defines a rule that sets the `external-top` layout when the computer is connected to the `WiFi-Example-1`:
+The following example defines a rule that sets the `external-top` layout when the computer is connected to the `WiFi-Example-1`, and sets its priority to 1 (**high priority**):
 
 ``` lisp
 (define-rule top-layout-1
   :predicate (wifi= "WiFi-Example-1")
+  :priority 1
   :layout external-top)
 ```
 
@@ -82,3 +83,5 @@ The following rule defines a catch all that will always set the `laptop-only` la
 (define-rule default-layout
   :layout laptop-only)
 ```
+
+**Note:** The rule priority should not be set to a value higher that 99 to allow proper deprioritization of rules with no priority set.

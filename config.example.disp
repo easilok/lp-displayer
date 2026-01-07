@@ -45,17 +45,19 @@
 ;; Rule definitions
 ;; ##################
 
-;; Fallback to laptop only
-(define-rule default-layout
-  ;; no predicate for default rule
-  :layout laptop-only)
-
 ;; When connected WiFi-Example-1, use laptop + external top monitor if possible
+;; Max priority on this rule
 (define-rule top-layout-1
   :predicate (wifi= "WiFi-Example-1")
+  :priority 1
   :layout external-top)
 
 ;; When connected to WiFi-Example-2, use laptop + external left monitor if possible
 (define-rule left-layout-1
   :predicate (wifi= "WiFi-Example-2")
   :layout external-left)
+
+;; Fallback to laptop only
+(define-rule default-layout
+  ;; no predicate for default rule
+  :layout laptop-only)

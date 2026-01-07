@@ -19,12 +19,14 @@
      (setf (gethash ',name *layouts*) layout)
      layout))
 
-(defmacro define-rule (name &key predicate layout)
+(defmacro define-rule (name &key predicate layout priority)
   "Parses a rule configuration from the DSL configuration file into it's own object instance
    Builds a local list of rules configuration to iterate over as *rules*"
-  `(let ((rule (make-instance 'rule
+  `(let* ((default-priority (+ 100 (length *rules*)))
+          (rule (make-instance 'rule
                               :name ',name
                               :predicate ,predicate
+                              :priority (or ,priority default-priority)
                               :layout ',layout)))
 
      (push rule *rules*)

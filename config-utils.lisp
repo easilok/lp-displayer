@@ -8,7 +8,8 @@
 
 (defun load-config-file (&optional (file-path "config.disp"))
   "Loads and parses the configuration file into the application"
-  (load file-path))
+  (load file-path)
+  (setq *rules* (sort-rules *rules*)))
 
 (defun get-cli-option (args option &key default (boolean nil))
   "Gets the provided 'option' value out of 'args' if exists"
