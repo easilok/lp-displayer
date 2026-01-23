@@ -63,9 +63,9 @@
   (let ((system-state (collect-system-state)))
     (run-layout-trigger-actions (gethash 'before-layout *layout-triggers*))
     (if layout
-        (apply-layout layout system-state :dry-run dry-run))
+        (apply-layout layout system-state :dry-run dry-run)
         (apply-layout (apply-rules *rules* system-state) system-state :dry-run dry-run))
-    (run-layout-trigger-actions (gethash 'after-layout *layout-triggers*)))
+    (run-layout-trigger-actions (gethash 'after-layout *layout-triggers*))))
 
 (defun main (&optional args)
   "Application entrypoint. Parses rules and layouts configuration and user commands."
