@@ -52,9 +52,9 @@
   :priority 1
   :layout external-top)
 
-;; When connected to WiFi-Example-2, use laptop + external left monitor if possible
+;; When connected to any network containing WiFi-Example, use laptop + external left monitor if possible
 (define-rule left-layout-1
-  :predicate (wifi= "WiFi-Example-2")
+  :predicate (wifi-includes "WiFi-Example")
   :layout external-left)
 
 ;; Fallback to laptop only

@@ -42,6 +42,10 @@
   "Helper for comparing the current wifi name"
   (lambda (state) (string= (system-wifi state) ssid)))
 
+(defun wifi-includes (ssid)
+  "Helper for pattern search on current wifi name"
+  (lambda (state) (search ssid (system-wifi state))))
+
 (defun no-wifi ()
   "Helper for checking if system is not connected to an wifi"
   (lambda (state) (null (system-wifi state))))
